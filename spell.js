@@ -2,6 +2,8 @@ var db = null;
 var status = null;
 var search = null;
 var notesField = null;
+var newTagsField = null;
+var newNoteField = null;
 
 function trim(str) {
   return str.replace(/^\s+|\s+$/g,"");
@@ -11,7 +13,9 @@ function init() {
     //alert('init');
     status = document.querySelector('#status');
     search = document.querySelector('#search');
-    notesField = document.querySelector('#notes');
+notesField = document.querySelector('#notes');
+newTagsField = document.querySelector('#newTagsField');
+newNoteField = document.querySelector('#newNoteField');
     if(window.openDatabase) {
         db =  openDatabase('spell.db','1.0','spell',2*1024*1024);
         if(db) {
@@ -33,6 +37,20 @@ function init() {
         status.innerHTML = 'database is not supported by browser';
     }
 };
+
+function insert() {
+var tags = newTagsField.value;
+var note = newNoteField.value;
+tags = trim(tags);
+//tags = "'" + tags + "'";
+//note = "'" + note + "'";
+console.log(tags,note);
+db.transaction(function(tx) {
+                       tx.executeSql("INSERT INTO SPELL (tags,note) VALUES (?,?)",[tags,note]);
+                       });
+newTagsField.value = '';
+newNoteField.value = '';
+}
 
 function load() {
     var sql = 'SELECT rowid,tags,note FROM SPELL WHERE ';
@@ -79,6 +97,19 @@ function load() {
     });
 }
 
+function show() {
+var el=document.querySelector('#add');
+if(el.style.visibility == "hidden") {
+  el.style.visibility = "visible";
+  el.style.display = "block";
+  } 
+else {
+  el.style.visibility = "hidden";
+  el.style.display = "none";
+  }
+console.log('hello');
+}
+
 var delay = function() {
     var timer=0;
     return function(callback, ms) {
@@ -86,4 +117,3 @@ var delay = function() {
         timer=setTimeout(callback,ms);
     };
 }();
-
