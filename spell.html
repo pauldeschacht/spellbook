@@ -1,10 +1,25 @@
 <html>
 <head>
+<style type="text/css">
+#add.collapse {
+  visibility:hidden;
+}
+</style>
 <script type="text/javascript" src="spell.js">
 </script>
 <body onload="init()">
 <div id="status">Init...</div>
-<div><input id="search" type="text" onkeyup="delay(function() {load();}, 300);"/></div>
+<div><input id="search" type="text" onkeyup="delay(function()
+                                             {load();}, 300);"/></div>
+<input type="submit" value="add note" onclick="show()"/></p>
+<div id="add" class="collapse" >
+<p>Enter tags</p>
+<p><input id="newTagsField" type="text"/></p>
+<p>Enter note</p>
+<p><textarea id="newNoteField" rows="20"></textarea></p>
+<p><input type="submit" value="Add" onclick="insert()"/></p>
+</div>
+
 <div id="notes"></div>
 </body>
 </head>
