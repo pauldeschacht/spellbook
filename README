@@ -1,0 +1,8 @@
+Summary
+-------
+A small expirement with Chrome's internal database. The spellbook allows to quickly store small notes in the browser's database. The notes are annotated with tags. 
+The notes is retrieved by searching the tags (type ahead search)
+
+TODO
+----
+Use Twitter's bootstrap to make a nicer interface.
